@@ -1,2 +1,3 @@
-# my-first-project
-This is my firsst project on GitHub
+For entertainment
+This is my first project on GitHub
+Trying to impress someone hahaha 
