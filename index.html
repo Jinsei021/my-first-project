@@ -7,7 +7,7 @@
 <style>
 body {
     margin: 0;
-    background: linear-gradient(135deg, #000000, #1a001a);
+    background: black;
     color: white;
     font-family: Arial;
     text-align: center;
@@ -21,79 +21,42 @@ body {
 
 /* TITLE */
 h1 {
-    font-size: 55px;
-    color: #ff4d6d;
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 10px #ff4d6d; }
-    to { text-shadow: 0 0 40px #ff4d6d, 0 0 80px #ff4d6d; }
+    font-size: 50px;
+    color: pink;
 }
 
 /* BUTTON */
 button {
     padding: 15px 25px;
     font-size: 18px;
-    background: #ff4d6d;
+    background: pink;
     border: none;
-    border-radius: 25px;
-    color: white;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-button:hover {
-    transform: scale(1.1);
-    background: #ff1e4d;
-}
-
-/* MESSAGE BOX */
+/* MESSAGE */
 #letter {
     margin-top: 30px;
     font-size: 22px;
     display: none;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.5;
 }
 
-/* BIG HEART */
-.big-heart {
-    font-size: 70px;
-    margin: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.big-heart:hover {
-    transform: scale(1.2);
-}
-
-/* SECRET MESSAGE */
-#secret {
-    display: none;
-    font-size: 24px;
-    margin-top: 20px;
-    color: #ff9eb5;
-}
-
-/* FLOATING HEARTS */
+/* HEART STYLE */
 .heart {
     position: fixed;
-    bottom: -20px;
-    color: #ff4d6d;
-    animation: float 6s linear infinite;
+    bottom: -50px;
+    font-size: 30px;
+    animation: floatUp 4s linear infinite;
 }
 
-@keyframes float {
+/* ANIMATION */
+@keyframes floatUp {
     0% {
         transform: translateY(0);
         opacity: 1;
     }
     100% {
-        transform: translateY(-100vh);
+        transform: translateY(-120vh);
         opacity: 0;
     }
 }
@@ -105,28 +68,19 @@ button:hover {
 <div class="container">
     <h1>I LOVE YOU ❤️</h1>
 
-    <!-- BIG HEART -->
-    <div class="big-heart" onclick="showSecret()">💖</div>
-
-    <!-- BUTTON -->
     <button onclick="openLetter()">Click Me 💌</button>
 
-    <!-- MESSAGE -->
     <div id="letter"></div>
-
-    <!-- SECRET -->
-    <div id="secret">🌹 You’re really special to me 🌹</div>
 </div>
 
 <script>
 
-/* LETTER (typing effect - FIXED) */
+/* MESSAGE FUNCTION */
 function openLetter() {
     const letter = document.getElementById("letter");
-
     letter.style.display = "block";
 
-    const message = "I made this just for you... You make my days better, my mood lighter, and honestly... I really like you ❤️";
+    const message = "I made this just for you... I really like you ❤️";
 
     let i = 0;
     letter.innerHTML = "";
@@ -142,48 +96,23 @@ function openLetter() {
     type();
 }
 
-/* SECRET MESSAGE */
-function showSecret() {
-    document.getElementById("secret").style.display = "block";
-}
-
-/* FLOATING HEARTS BACKGROUND */
+/* VERY OBVIOUS HEART ANIMATION */
 function createHeart() {
     const heart = document.createElement("div");
-    heart.classList.add("heart");
+    heart.className = "heart";
     heart.innerHTML = "❤️";
 
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 25 + 15 + "px";
 
     document.body.appendChild(heart);
 
     setTimeout(() => {
         heart.remove();
-    }, 6000);
+    }, 4000);
 }
 
-setInterval(createHeart, 200);
-
-/* CLICK ANYWHERE = HEART BURST */
-document.addEventListener("click", function(e) {
-    for (let i = 0; i < 5; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-
-        heart.style.left = e.clientX + "px";
-        heart.style.top = e.clientY + "px";
-        heart.style.position = "fixed";
-        heart.style.fontSize = "20px";
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 2000);
-    }
-});
+/* FASTER SPAWN SO YOU NOTICE */
+setInterval(createHeart, 100);
 
 </script>
 
