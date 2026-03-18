@@ -7,80 +7,129 @@
 <style>
 body {
     margin: 0;
-    background: black;
-    color: white;
+    background: linear-gradient(135deg, #000, #1a001a);
     font-family: Arial;
     text-align: center;
+    color: white;
     overflow: hidden;
 }
 
-/* CENTER */
 .container {
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
-/* TITLE */
-h1 {
-    font-size: 50px;
-    color: pink;
-}
-
-/* BUTTON */
-button {
-    padding: 15px 25px;
-    font-size: 18px;
-    background: pink;
-    border: none;
+/* ENVELOPE */
+.envelope {
+    width: 150px;
+    height: 100px;
+    background: #ff4d6d;
+    margin: auto;
+    position: relative;
     cursor: pointer;
+    border-radius: 10px;
 }
 
-/* MESSAGE */
+.envelope:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-bottom: 50px solid #ff1e4d;
+}
+
+/* LETTER */
 #letter {
+    display: none;
     margin-top: 30px;
     font-size: 22px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* BUTTONS */
+.buttons {
+    margin-top: 30px;
     display: none;
 }
 
-/* HEART STYLE */
-.heart {
-    position: fixed;
-    bottom: -50px;
-    font-size: 30px;
-    animation: floatUp 4s linear infinite;
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
 }
 
-/* ANIMATION */
-@keyframes floatUp {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-120vh);
-        opacity: 0;
-    }
+#yes {
+    background: #4CAF50;
+    color: white;
 }
+
+#no {
+    background: #ff4d6d;
+    color: white;
+    position: absolute;
+}
+
+/* RESULT */
+#result {
+    margin-top: 30px;
+    font-size: 26px;
+    color: pink;
+}
+
+/* HEARTS */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 25px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <h1>I LOVE YOU ❤️</h1>
 
-    <button onclick="openLetter()">Click Me 💌</button>
+    <h1>For You ❤️</h1>
 
+    <!-- ENVELOPE -->
+    <div class="envelope" onclick="openLetter()"></div>
+
+    <!-- LETTER -->
     <div id="letter"></div>
+
+    <!-- BUTTONS -->
+    <div class="buttons" id="buttons">
+        <p>Do you like me? 😳</p>
+        <button id="yes" onclick="yesClicked()">YES 💖</button>
+        <button id="no" onmouseover="moveNo()">NO 😈</button>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result"></div>
+
 </div>
 
 <script>
 
-/* MESSAGE FUNCTION */
+/* OPEN LETTER */
 function openLetter() {
     const letter = document.getElementById("letter");
     letter.style.display = "block";
 
-    const message = "I made this just for you... I really like you ❤️";
+    const message = "Hey... I made this just for you. I don’t know if this is cheesy, but you’ve been on my mind a lot lately. You make my days better... and I really like you ❤️";
 
     let i = 0;
     letter.innerHTML = "";
@@ -90,13 +139,27 @@ function openLetter() {
             letter.innerHTML += message[i];
             i++;
             setTimeout(type, 40);
+        } else {
+            document.getElementById("buttons").style.display = "block";
         }
     }
 
     type();
 }
 
-/* VERY OBVIOUS HEART ANIMATION */
+/* YES BUTTON */
+function yesClicked() {
+    document.getElementById("result").innerHTML = "Aaaa I knew it 😭❤️";
+}
+
+/* NO BUTTON RUNS AWAY */
+function moveNo() {
+    const btn = document.getElementById("no");
+    btn.style.top = Math.random() * 80 + "%";
+    btn.style.left = Math.random() * 80 + "%";
+}
+
+/* HEART ANIMATION */
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -108,11 +171,10 @@ function createHeart() {
 
     setTimeout(() => {
         heart.remove();
-    }, 4000);
+    }, 5000);
 }
 
-/* FASTER SPAWN SO YOU NOTICE */
-setInterval(createHeart, 100);
+setInterval(createHeart, 150);
 
 </script>
 
