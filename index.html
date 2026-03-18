@@ -2,60 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You ❤️</title>
+<title>For Someone Special ❤️</title>
 
 <style>
-body{
-    margin:0;
-    padding:0;
-    background:#0b0b0b;
-    overflow:hidden;
-    font-family: Arial, Helvetica, sans-serif;
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0b0b0b, #1a001a);
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
 }
 
-.container{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
+/* CENTER CONTENT */
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
-h1{
-    font-size:70px;
-    color:#ff4d6d;
-    letter-spacing:5px;
+/* TITLE */
+h1 {
+    font-size: 60px;
+    color: #ff4d6d;
     animation: glow 2s infinite alternate;
 }
 
-@keyframes glow{
-    from{ text-shadow:0 0 10px #ff4d6d;}
-    to{ text-shadow:0 0 30px #ff4d6d, 0 0 60px #ff4d6d;}
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ff4d6d; }
+    to { text-shadow: 0 0 40px #ff4d6d, 0 0 80px #ff4d6d; }
 }
 
-.typing{
-    font-size:28px;
-    color:white;
-    margin-top:20px;
+/* BUTTON */
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
 }
 
-.heart{
-    position:absolute;
-    color:#ff4d6d;
-    font-size:20px;
+button:hover {
+    transform: scale(1.1);
+    background: #ff1e4d;
+}
+
+/* LETTER */
+.letter {
+    display: none;
+    margin-top: 30px;
+    font-size: 20px;
+    max-width: 500px;
+    animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* HEARTS */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
     animation: float 6s linear infinite;
 }
 
-@keyframes float{
-    0%{
-        transform:translateY(0);
-        opacity:1;
-    }
-    100%{
-        transform:translateY(-100vh);
-        opacity:0;
-    }
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
 }
+
+/* BIG HEART CLICK EFFECT */
+.big-heart {
+    font-size: 80px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.big-heart:hover {
+    transform: scale(1.2);
+}
+
+/* SECRET MESSAGE */
+.secret {
+    display: none;
+    font-size: 24px;
+    margin-top: 20px;
+    color: #ff9eb5;
+    animation: fadeIn 2s ease forwards;
+}
+
 </style>
 </head>
 
@@ -63,40 +106,82 @@ h1{
 
 <div class="container">
     <h1>I LOVE YOU ❤️</h1>
-    <div class="typing" id="text"></div>
+
+    <div class="big-heart" onclick="showSecret()">💖</div>
+
+    <button onclick="openLetter()">Click Me 💌</button>
+
+    <div class="letter" id="letter">
+        <p>
+        From the moment I met you, something felt different.  
+        You make my world brighter, my days lighter, and my heart happier.  
+
+        I don’t know if this is the perfect way to say it...  
+        but I just want you to know —  
+
+        <b>I really, really like you. ❤️</b>
+        </p>
+    </div>
+
+    <div class="secret" id="secret">
+        🌹 Surprise... you're special to me 🌹
+    </div>
+
 </div>
 
 <script>
 
-const message = "You are the most beautiful part of my life.";
-let i = 0;
-
-function typing(){
-    if(i < message.length){
-        document.getElementById("text").innerHTML += message.charAt(i);
-        i++;
-        setTimeout(typing, 60);
-    }
-}
-
-typing();
-
-function createHeart(){
+/* FLOATING HEARTS */
+function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML="❤️";
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = Math.random()*30 + 20 + "px";
-    heart.style.animationDuration = Math.random()*3 + 3 + "s";
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 30 + 20 + "px";
+    heart.style.animationDuration = Math.random() * 3 + 3 + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>{
+    setTimeout(() => {
         heart.remove();
-    },6000);
+    }, 6000);
 }
 
-setInterval(createHeart,200);
+setInterval(createHeart, 150);
+
+
+/* OPEN LETTER */
+function openLetter() {
+    document.getElementById("letter").style.display = "block";
+}
+
+
+/* SECRET HEART CLICK */
+function showSecret() {
+    document.getElementById("secret").style.display = "block";
+}
+
+
+/* OPTIONAL: CLICK ANYWHERE = HEART BURST */
+document.addEventListener("click", function(e) {
+    for (let i = 0; i < 5; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+
+        heart.style.left = e.clientX + "px";
+        heart.style.top = e.clientY + "px";
+        heart.style.position = "absolute";
+        heart.style.fontSize = "20px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 2000);
+    }
+});
 
 </script>
 
